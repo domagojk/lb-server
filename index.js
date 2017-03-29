@@ -28,8 +28,6 @@ app.get('/status', function (req, res) {
 
 
 io.on('connection', function(socket){
-  console.log('a user connected');
-
   data$
     .sample(Rx.Observable.interval(10000))
     .subscribe(function(state) {
