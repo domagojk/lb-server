@@ -22,11 +22,16 @@ app.post('/message', function (req, res) {
   data$.next(state)
 })
 
+app.get('/status', function (req, res) {
+  res.send(JSON.stringify(state))
+})
+
+
 io.on('connection', function(socket){
   console.log('a user connected');
 
   data$
-    .sample(Rx.Observable.interval(2000))
+    .sample(Rx.Observable.interval(10000))
     .subscribe(function(state) {
       socket.emit('state', state);
       /*console.log(state)
