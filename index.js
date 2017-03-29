@@ -43,6 +43,6 @@ io.on('connection', function(socket){
     })
 })
 
-http.listen(80, function listening() {
-  console.log('Listening on 80');
+http.listen(8000, function listening() {
+  console.log('Listening on 8000');
 })
