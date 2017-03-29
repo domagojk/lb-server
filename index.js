@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const Rx = require("rxjs/Rx");
+var cors = require('cors')
 
 const app = express();
 var http = require('http').Server(app);
 
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -38,6 +40,6 @@ data$
     };*/
   })
 
-http.listen(8000, function listening() {
-  console.log('Listening on 8000');
+http.listen(80, function listening() {
+  console.log('Listening on 80');
 })
