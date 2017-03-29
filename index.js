@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const Rx = require("rxjs/Rx");
-var cors = require('cors')
+const cors = require('cors')
+const path = require('path')
 
 const app = express();
-var http = require('http').Server(app);
+const http = require('http').Server(app);
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }));
