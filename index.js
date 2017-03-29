@@ -1,0 +1,43 @@
+const express = require('express');
+const bodyParser = require("body-parser");
+const Rx = require("rxjs/Rx");
+
+const app = express();
+var http = require('http').Server(app);
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+const io = require('socket.io')(http);
+
+const state = {
+  // device_id: payload
+}
+
+const data$ = new Rx.Subject()
+app.post('/message', function (req, res) {
+  state[req.body.bit_id] = req.body
+  data$.next(state)
+})
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+})
+
+data$
+  .sample(Rx.Observable.interval(2000))
+  .subscribe(function(state) {
+    socket.emit('state', state);
+    /*console.log(state)
+     wss.broadcast = function broadcast(state) {
+      wss.clients.forEach(function each(client) {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(state);
+        }
+      });
+    };*/
+  })
+
+http.listen(8000, function listening() {
+  console.log('Listening on 8000');
+})
