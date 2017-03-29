@@ -26,6 +26,7 @@ app.get('/status', function (req, res) {
   res.send(JSON.stringify(state))
 })
 
+app.use('/', express.static(path.join(__dirname, 'lb-client/build')))
 
 io.on('connection', function(socket){
   data$
@@ -43,6 +44,6 @@ io.on('connection', function(socket){
     })
 })
 
-http.listen(8000, function listening() {
-  console.log('Listening on 8000');
+http.listen(80, function listening() {
+  console.log('Listening on 80');
 })
