@@ -35,7 +35,6 @@ try {
 
 const data$ = new Rx.Subject()
 app.post('/message', function (req, res) {
-  console.log(req.body)
   if (!deviceList[req.body.bit_id]) {
     res.sendStatus(403)
     return
