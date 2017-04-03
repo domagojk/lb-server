@@ -21,7 +21,7 @@ let state = {
 }
 let deviceList = {
   // device_id: {
-  //   deviceId: 
+  //   device_id: 
   //   access_token 
   // }
 }
@@ -50,29 +50,37 @@ app.post('/devicelist', function (req, res) {
     return
   }
 
+  let deviceListTest = {}
+
+  req.body.device_list.map(device => {
+    deviceListTest[device.device_id] = device
+  })
+
   try {
-    let deviceListStr = JSON.stringify(req.body.device_list)
+    let deviceListStr = JSON.stringify(deviceListTest)
     fs.writeFileSync("./saved_device_list", deviceListStr)
   } catch (e) {
     res.sendStatus(500)
     return
   }
 
-  deviceList = {}
+  deviceList = deviceListTest
   state = {}
-
-  req.body.device_list.map(device => {
-    deviceList[device.device_id] = {
-      deviceId: device.device_id,
-      access_token: device.access_token
-    }
-  })
 
   res.sendStatus(200)
 })
 
 app.get('/status', function (req, res) {
   res.send(JSON.stringify(state))
+})
+
+app.get('/devicelist', function (req, res) {
+  let filteredList = {}
+  Object.keys(deviceList).forEach(deviceId => {
+    filteredList[deviceId] = deviceList[deviceId]
+    delete filteredList[deviceId].access_token
+  })
+  res.send(JSON.stringify(filteredList))
 })
 
 app.use('/', express.static(path.join(__dirname, 'lb-client/build')))
