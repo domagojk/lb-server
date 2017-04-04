@@ -53,7 +53,7 @@ function sendOutput(percent = 100, duration_ms = -1) {
     
     outputFn((err, res) => {
       if (err) {
-        console.log(`error sending output to ${currentDeviceId}`, err)
+        console.log(`error sending output to ${currentDeviceId}`, deviceList[currentDeviceId].access_token, err)
       } else {
         console.log(`successfully sent ${percent} output to ${currentDeviceId}`)
       }
