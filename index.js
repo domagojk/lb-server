@@ -119,7 +119,7 @@ app.get('/status', function (req, res) {
 app.get('/devicelist', function (req, res) {
   let filteredList = {}
   Object.keys(deviceList).forEach(deviceId => {
-    filteredList[deviceId] = deviceList[deviceId]
+    filteredList[deviceId] = Object.assign({}, deviceList[deviceId])
     delete filteredList[deviceId].access_token
   })
   res.send(JSON.stringify(filteredList))
