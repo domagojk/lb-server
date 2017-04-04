@@ -55,7 +55,7 @@ function sendOutput(percent = 100, duration_ms = -1) {
       if (err) {
         console.log(`error sending output to ${currentDeviceId}`)
       } else {
-        console.log(`successfully sent ${percent} output to ${currentDeviceId}`)
+        console.log(`successfully sent ${percent} output to ${currentDeviceId}`, err.message)
       }
       num++
       setTimeout(next, 500)
