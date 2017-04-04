@@ -84,6 +84,7 @@ app.get('/devicelist', function (req, res) {
 })
 
 app.use('/', express.static(path.join(__dirname, 'lb-client/build')))
+app.use('/', express.static(path.join(__dirname, 'lb-admin')))
 
 io.on('connection', function(socket){
   data$
