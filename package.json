@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@littlebits/cloud-http": "^0.3.5",
     "blueimp-md5": "^2.7.0",
     "body-parser": "^1.17.1",
     "cors": "^2.8.2",

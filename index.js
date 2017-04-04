@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const Rx = require("rxjs/Rx");
 const cors = require('cors')
 const path = require('path')
+const littlebits = require('@littlebits/cloud-http')
 
 const app = express();
 const http = require('http').Server(app);
