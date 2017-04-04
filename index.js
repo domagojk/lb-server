@@ -35,7 +35,6 @@ try {
 
 const data$ = new Rx.Subject()
 app.post('/message', function (req, res) {
-  console.log(req.body.bit_id, !!deviceList[req.body.bit_id])
   if (!deviceList[req.body.bit_id]) {
     res.sendStatus(403)
     return
@@ -85,6 +84,8 @@ app.get('/devicelist', function (req, res) {
 })
 
 app.use('/', express.static(path.join(__dirname, 'lb-client/build')))
+
+app.use('/admin', express.static(path.join(__dirname, 'lb-admin/build')))
 
 io.on('connection', function(socket){
   data$
