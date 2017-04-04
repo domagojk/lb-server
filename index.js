@@ -64,9 +64,14 @@ function sendOutput(percent = 100, duration_ms = -1) {
   next()
 }
 
-app.get('/sendoutput100', function (req, res) {
+app.post('/turnon', function (req, res) {
   sendOutput()
-  res.send('test')
+  res.sendStatus(200)
+})
+
+app.post('/turnoff', function (req, res) {
+  sendOutput(0)
+  res.sendStatus(200)
 })
 
 const data$ = new Rx.Subject()
