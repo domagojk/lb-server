@@ -33,6 +33,41 @@ try {
   deviceList = {}
 }
 
+function sendOutput(percent = 100, duration_ms = -1) {
+  let deviceIds = Object.keys(deviceList)
+  let num = 0
+  const next = () => {
+    let currentDeviceId = deviceIds[num]
+    if (!currentDeviceId) {
+      return
+    }
+
+    let outputFn = littlebits
+      .defaults({ access_token: deviceList[currentDeviceId].access_token })
+      .output.defaults({
+          device_id: currentDeviceId,
+          percent,
+          duration_ms
+      })
+    
+    outputFn((err, res) => {
+      if (err) {
+        console.log(`error sending output to ${currentDeviceId}`)
+      } else {
+        console.log(`successfully sent ${percent} output to ${currentDeviceId}`)
+      }
+      num++
+      setTimeout(next, 500)
+    })
+  }
+  next()
+}
+
+app.get('/sendoutput100', function (req, res) {
+  sendOutput()
+  res.send('test')
+})
+
 const data$ = new Rx.Subject()
 app.post('/message', function (req, res) {
   if (!deviceList[req.body.bit_id]) {
