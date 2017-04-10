@@ -117,6 +117,16 @@ app.get('/status', function (req, res) {
   res.send(JSON.stringify(state))
 })
 
+app.get('/devicestatus', function (req, res) {
+  let statusMessage = ''
+
+  Object.keys(deviceList).forEach(deviceId => {
+    let inState = (state[deviceId]) ? 'OK' : 'NOT PINGING'
+    statusMessage += '\n'
+    statusMessage += deviceId + ': ' + inState
+  })
+})
+
 app.get('/devicelist', function (req, res) {
   let filteredList = {}
   Object.keys(deviceList).forEach(deviceId => {
