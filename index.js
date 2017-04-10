@@ -125,6 +125,7 @@ app.get('/devicestatus', function (req, res) {
     statusMessage += '\n'
     statusMessage += deviceId + ': ' + inState
   })
+  res.send(statusMessage)
 })
 
 app.get('/devicelist', function (req, res) {
