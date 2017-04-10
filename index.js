@@ -78,6 +78,7 @@ app.post('/turnoff', function (req, res) {
 const data$ = new Rx.Subject()
 app.post('/message', function (req, res) {
   if (!deviceList[req.body.bit_id]) {
+    console.log('device '+ req.body.bit_id + ' not in the deviceList')
     res.sendStatus(403)
     return
   }
