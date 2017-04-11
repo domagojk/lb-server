@@ -87,6 +87,34 @@ app.post('/message', function (req, res) {
   res.sendStatus(200)
 })
 
+app.get('/forcevalue/:bit_id/:value_id', function (req, res) {
+  var num = parseInt(req.params.value_id, 10)
+  if (!num) {
+    res.send('invalid value. not a number.')
+    return
+  }
+
+  var forced = {
+    "type":"amplitude",
+    "timestamp":1491892973539,
+    "user_id":1,
+    "bit_id":req.params.bit_id,
+    "payload":{
+      "percent":num,
+      "delta":"amplitude"
+    }
+  }
+
+  if (!deviceList[forced.bit_id]) {
+    res.send('device '+ forced.bit_id + ' not in the deviceList')
+    return
+  }
+
+  state[forced.bit_id] = forced
+  data$.next(state)
+  res.send('value forced successfully')
+})
+
 app.post('/devicelist', function (req, res) {
   if (md5(req.body.password) !== md5Pass) {
     res.sendStatus(403)
